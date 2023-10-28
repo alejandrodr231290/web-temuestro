@@ -1,0 +1,171 @@
+{% extends "base.html.twig" %}
+{% block title %}Conexiones
+{% endblock %}
+
+
+{% block head %}
+	{{ parent() }}
+
+	<style type="text/css">
+
+		label.error.fail-alert {
+			color: red;
+		}
+		:root {
+			--dt-row-selected: 20, 80, 200;
+		}
+		tr:hover {
+			cursor: pointer;
+		}
+		#select-unidad {
+			width: 200px;
+			float: left;
+
+		}
+		.btn-app {
+			margin: 5px;
+		}
+		.mb-1 {
+			margin-bottom: 0.25rem !important;
+		}
+		h5 {
+			margin-bottom: 0.25rem;
+		}
+		.dataTables_length {
+			margin-bottom: 0.25rem;
+		}
+	</style>
+{% endblock %}
+
+{% block content %}
+
+	{{ include('menu.html.twig', {modulo: 'configuracion'}) }}
+
+	<div class="container container-full-width">
+		<div class="form-group row">
+			<div class="row border-bottom mb-1">
+				<h5 class="">Conexiones</h5>
+			</div>
+			<div class="form-group row">
+				<div class=" col-md-4 ">
+					<div class="form-group row ">
+						<label for="select-unidad" class="col-3 col-form-label fw-bolder">
+							Unidad
+						</label>
+						<div class="col-8">
+							<select class="form-select  form-select-sm mb-1" id="select-unidad" aria-label=".form-select-sm example">
+								{% for unidad in unidades %}
+									<option value="{{ unidad.id }}">{{ unidad.nombre }}</option>
+								{% endfor %}
+							</select>
+
+
+						</div>
+					</div>
+				</div>
+				<div class="col-8  " align="right">
+					<button type="button" id="buttoneditar" data-toggle="tooltip" title="Editar" class="btn btn-outline-primary btn-sm mb-1 " disabled="">
+						<span class="bi bi-pencil"></span>
+					</button>
+
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<table id="tabla" class="table table-striped" style="width:100%">
+				<thead>
+					<tr>
+						<th scope="col"></th>
+						<th scope="col">Tipo</th>
+						<th scope="col">Sistema</th>
+						<th scope="col">Host</th>
+						<th scope="col">Instancia</th>
+						<th scope="col">DB</th>
+						<th scope="col">Usuario</th>
+						<th scope="col">Contraseña</th>
+						<th scope="col">Almacenes</th>
+					</tr>
+				</thead>
+
+			</table>
+
+		</div>
+	</div>
+	<form id="edtformulario">
+		<div class="modal fade" id="edtmodal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-scrollable">
+				<div class="modal-content">
+					<div class="modal-header">
+
+						<h1 class="modal-title fs-5" id="modalLabel">Editar Conexión
+						</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+
+					<div class="modal-body">
+						<div class="form-group row">
+							<label for="edtsistema" class="col-sm-3 col-form-label">Sistema</label>
+							<div class="col-sm-9">
+								<select class="form-select form-select-sm" name="edtsistema" id="edtsistema" aria-label="Default select example">
+									{% for sistema in sistemas %}
+										<option value="{{ sistema.id }}">{{ sistema.nombre }}</option>
+									{% endfor %}
+								</select>
+							</div>
+						</div>
+						<div class="form-group row ">
+							<label for="edthost" class="col-sm-3  col-form-label">Host</label>
+							<div class="col-sm-9">
+								<input class="form-control form-control-sm" type="text" name="edthost" id="edthost" placeholder="Host">
+							</div>
+						</div>
+						<div class="form-group row ">
+							<label for="edtinstancia" class="col-sm-3  col-form-label">Instancia</label>
+							<div class="col-sm-9">
+								<input class="form-control form-control-sm" type="text" name="edtinstancia" id="edtinstancia" placeholder="Instancia">
+							</div>
+						</div>
+						<div class="form-group row ">
+							<label for="edtbd" class="col-sm-3  col-form-label">BD</label>
+							<div class="col-sm-9">
+								<input class="form-control form-control-sm" type="text" name="edtbd" id="edtbd" placeholder="Base de Datos">
+							</div>
+						</div>
+						<div class="form-group row ">
+							<label for="edtusuario" class="col-sm-3  col-form-label">Usuario</label>
+							<div class="col-sm-9">
+								<input class="form-control form-control-sm" type="text" name="edtusuario" id="edtusuario" placeholder="Usuario">
+							</div>
+						</div>
+						<div class="form-group row ">
+							<label for="edtcontrasena" class="col-sm-3  col-form-label">Contraseña</label>
+							<div class="col-sm-9">
+								<input class="form-control form-control-sm" type="text" name="edtcontrasena" id="edtcontrasena" placeholder="Contraseña">
+							</div>
+						</div>
+
+						<div class="form-group row ">
+							<label for="edtalmacenes" class="col-sm-3  col-form-label">Almacenes</label>
+							<div class="col-sm-9  gap-2 ">
+								<select class="form-select " name="edtalmacenes" id="edtalmacenes" size="4" multiple></select>
+							</div>
+						</div>
+
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" id="checkconexion" class="btn btn-primary btn-sm">Chequear Conexión</button>
+						<button type="button" id="checkalmacenes" class="btn btn-primary btn-sm">Cargar Almacenes</button>
+						<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancelar</button>
+						<button type="button" id="edtbuttonform" class="btn btn-primary btn-sm">Aceptar</button>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</form>
+{% endblock %}
+{% block footer %}
+	{{ parent() }}
+	<script src="{{ asset('js/conf_conexiones.js') }}" rel="script"></script>
+{% endblock %}

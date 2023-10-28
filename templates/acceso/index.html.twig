@@ -1,0 +1,25 @@
+{% extends "base.html.twig" %}
+{% block title %}
+{% endblock %}
+
+
+{% block head %}
+	{{ parent() }}
+
+	<style type="text/css"></style>
+
+{% endblock %}
+
+{% block content %}
+
+	{{ include('menu.html.twig', {modulo: '-'}) }}
+
+	<div class="container text-center container-full-width">
+		<h2 class="">{{message}}</h2>
+		<button type="button"  class="btn btn-primary mb-1" onclick="history.back()">Regresar</button>
+   	</div>
+
+
+</div>{% endblock %}{% block footer %}
+
+{{ parent() }}{% endblock %}

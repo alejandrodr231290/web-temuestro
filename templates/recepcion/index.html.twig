@@ -1,0 +1,130 @@
+{% extends "base.html.twig" %}
+{% block title %}Recepciones
+{% endblock %}
+
+
+{% block head %}
+	{{ parent() }}
+
+	<style type="text/css">
+		#select-unidad {
+			width: 200px;
+			float: left;
+
+		}
+		.input-group-text {
+			padding-top: 0.25rem;
+			padding-bottom: 0.25rem;
+			padding-left: 0.5rem;
+			font-size: 0.875rem;
+			border-radius: var(--bs-border-radius-sm);
+		}
+
+		#desde {
+			cursor: pointer;
+		}
+		#hasta {
+			cursor: pointer;
+		}
+		.btn-app {
+			margin: 5px;
+		}
+		.mb-1 {
+			margin-bottom: 0.25rem !important;
+		}
+		h5 {
+			margin-bottom: 0.25rem;
+		}
+		.dataTables_length {
+			margin-bottom: 0.25rem;
+		}
+	</style>
+
+{% endblock %}
+
+{% block content %}
+
+	{{ include('menu.html.twig', {modulo: 'datos'}) }}
+
+	<div class="container container-full-width">
+
+		<div class="form-group row">
+			<div class="row border-bottom mb-1">
+				<h5 class="">Recepciones</h5>
+			</div>
+			<div class="form-group row">
+				<div class=" col-md-4 " {% if is_granted('ROLE_COMERCIAL') or is_granted('ROLE_TRABAJADOR') %} hidden {% endif %}>
+
+					<div class="form-group row ">
+						<label for="select-unidad" class="col-3 col-form-label fw-bolder">
+							Unidad
+						</label>
+						<div class="col-8">
+							<select class="form-select  form-select-sm mb-1" id="select-unidad" aria-label=".form-select-sm example">
+								{% for unidad in unidades %}
+									<option value="{{ unidad.id }}" selected>{{ unidad.nombre }}</option>
+								{% endfor %}
+							</select>
+
+
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div id="foo">
+						<div class="form-group row ">
+							<div class="col-6 mb-1">
+								<div class="input-group ">
+									<div class="input-group-prepend">
+										<span class="input-group-text">
+											<i class="bi bi-calendar-date"></i>
+										</span>
+									</div>
+									<input class="form-control form-control-sm" name="start" readonly id="desde">
+								</div>
+							</div>
+
+							<div class="col-6 mb-1">
+								<div class="input-group ">
+									<div class="input-group-prepend">
+										<span class="input-group-text">
+											<i class="bi bi-calendar-date"></i>
+										</span>
+									</div>
+									<input class="form-control form-control-sm" name="end" readonly id="hasta">
+								</div>
+							</div>
+
+
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<p class="text-lg-start text-uppercase ">Total:
+						<label id="total" class="font-weight-bold fs-5">0</label>
+					</p>
+				</div>
+			</div>
+		</div>
+
+		<table id="tabla" class="  table table-striped" style="width:100%">
+			<thead>
+				<tr>
+					<th>Proveedor</th>
+					<th>Destino</th>
+					<th>Fecha</th>
+					<th>Estado</th>
+					<th>Total</th>
+				</tr>
+			</thead>
+		</table>
+
+	</div>
+
+{% endblock %}
+{% block footer %}
+	{{ parent() }}
+	<script src="{{ asset('js/datos_recepciones.js') }}" rel="script"></script>
+
+
+{% endblock %}

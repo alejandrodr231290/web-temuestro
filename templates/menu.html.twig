@@ -1,0 +1,124 @@
+<div class="menu-principal">
+	<div class="flex-shrink-0 p-1 bg-white menu-container .scroll" style="width: 180px;overflow: auto;box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;">
+		<ul class="list-unstyled ps-0">
+			<li class="mb-12">
+				<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+					<li>
+						<a class="link-dark rounded" href="{{path('app_panel')}}">
+							<span class="">
+								<i class="bi bi-stack"></i>
+								Portada</span>
+						</a>
+					</li>
+					<li>
+						<a class="link-dark rounded" href="{{path('app_productos')}}">
+							<span class="">
+								<i class="bi bi-box"></i>
+								Productos
+							</span>
+						</a>
+					</li>
+					<li>
+						<a class="link-dark rounded" href="{{path('app_ventas')}}">
+							<span>
+								<i class="bi bi-wallet2"></i>
+								Ventas
+							</span>
+						</a>
+					</li>
+					<li>
+						<a class="link-dark rounded" href="{{path('app_servicios')}}">
+							<span>
+								<i class="bi bi-wallet"></i>
+								Servicios
+							</span>
+						</a>
+					</li>
+					{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_COMERCIAL') or is_granted('ROLE_DIRECTIVO')%}
+						<li>
+							<a class="link-dark rounded" href="{{path('app_recepciones')}}">
+								<span class="">
+									<i class="bi bi-arrow-bar-down"></i>
+									Recepciones</span>
+							</a>
+						</li>
+					{% endif %}
+
+					{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_COMERCIAL') or is_granted('ROLE_DIRECTIVO')%}
+						<li>
+							<a class="link-dark rounded" href="{{path('app_transferencias')}}">
+								<span class="">
+									<i class="bi bi-arrow-down-up"></i>
+
+									Transferencias</span>
+							</a>
+						</li>
+					{% endif %}
+
+
+				</ul>
+
+			</li>
+		</li>
+
+		{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_COMERCIAL')%}
+			<li class="mb-1">
+				<button class="btn btn-toggle btn-toggle-collapse align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#configuracion-collapse" aria-expanded="false">
+					Configuración
+				</button>
+				{% if modulo == 'configuracion' %}
+					<div class="collapse show" id="configuracion-collapse">
+					{% else %}
+						<div class="collapse" id="configuracion-collapse">
+						{% endif %}
+						<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+							{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_COMERCIAL')%}
+								<li>
+									<a class="link-dark rounded " href="{{path('app_user')}}">
+										<span class="">
+											<i class="bi bi-people"></i>
+											Usuarios</span>
+
+									</a>
+								</li>
+							{% endif %}
+
+							{% if is_granted('ROLE_ADMIN') %}
+								<li>
+									<a class="link-dark rounded" href="{{path('app_unidades')}}">
+										<span class="">
+											<i class="bi bi-buildings"></i>
+											Unidades</span>
+									</a>
+								</li>
+							{% endif %}
+							{% if is_granted('ROLE_ADMIN') %}
+								<li>
+									<a class="link-dark rounded" href="{{path('app_conexiones')}}">
+										<span class="">
+											<i class="bi bi-database"></i>
+											Conexiones</span>
+									</a>
+								</li>
+							{% endif %}
+							{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_COMERCIAL')%}
+								<li>
+									<a class="link-dark rounded" href="{{path('app_plan')}}">
+										<span class="">
+											<i class="bi-bar-chart"></i>
+											Planes</span>
+									</a>
+								</li>
+							{% endif %}
+
+						</ul>
+					</div>
+				</li>
+			</li>
+		{% endif %}
+
+
+	</ul>
+
+</div>
+<div class="b-example-divider menu-large-divider"></div></div>

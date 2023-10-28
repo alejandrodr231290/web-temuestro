@@ -1,0 +1,199 @@
+{% extends "base.html.twig" %}
+{% block title %}Unidades
+{% endblock %}
+
+
+{% block head %}
+	{{ parent() }}
+
+	<style>
+		label.error.fail-alert {
+			color: red;
+		}
+		tr:hover {
+			cursor: pointer;
+		}
+		.pointer {
+			cursor: pointer;
+		}
+		.btn-app {
+			margin: 5px;
+		}
+		.mb-1 {
+			margin-bottom: 0.25rem !important;
+		}
+		h5 {
+			margin-bottom: 0.25rem;
+		}
+		.dataTables_length {
+			margin-bottom: 0.25rem;
+		}
+	</style>
+
+{% endblock %}
+
+{% block content %}
+
+	{{ include('menu.html.twig', {modulo: 'configuracion'}) }}
+
+	<div class="container container-full-width">
+		<div class="form-group row">
+			<div class="row border-bottom mb-1">
+				<h5 class="">Unidades</h5>
+			</div>
+			<div class="form-group row">
+
+				<div class="col-sm-12  " align="right">
+					<button type="button" id="buttonnuevo" data-toggle="tooltip" title="Nuevo" class="btn btn-outline-primary btn-sm mb-1">
+						<i class="fa fa-plus" aria-hidden="true"></i>
+					</button>
+					<button type="button" id="buttoneditar" data-toggle="tooltip" title="Editar" class="btn btn-outline-primary btn-sm mb-1 " disabled="">
+						<span class="bi bi-pencil"></span>
+					</button>
+					<button type="button" id="buttoneliminar" data-toggle="tooltip" title="Eliminar" class="btn btn-outline-primary btn-sm mb-1" disabled="">
+						<i class="fa fa-trash" aria-hidden="true"></i>
+					</button>
+
+				</div>
+
+
+			</div>
+		</div>
+
+		<div class="row">
+			<table id="tabla" class="table table-striped" style="width:100%">
+				<thead>
+					<tr>
+						<th scope="col"></th>
+						<th scope="col">Nombre</th>
+						<th scope="col">Código</th>
+						<th scope="col">Margen Comercial</th>
+
+					</tr>
+				</thead>
+
+			</table>
+
+		</div>
+
+
+	</div>
+
+	<form id="addformulario">
+		<div class="modal fade" id="addmodal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-scrollable">
+				<div class="modal-content">
+					<div class="modal-header">
+
+						<h1 class="modal-title fs-5" id="modalLabel">
+							Nueva Unidad</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+
+					<div class="modal-body">
+						<div class="form-group row ">
+							<label for="addnombre" class="col-sm-4  col-form-label">Nombre</label>
+							<div class="col-sm-8">
+								<input class="form-control form-control-sm" type="text" name="addnombre" id="addnombre" placeholder="Nombre de Unidad">
+							</div>
+						</div>
+						<div class="form-group row ">
+							<label for="addcodigo" class="col-sm-4  col-form-label">Código</label>
+							<div class="col-sm-8">
+								<input class="form-control form-control-sm" type="text" name="addcodigo" id="addcodigo" placeholder="Código de Unidad">
+							</div>
+						</div>
+						<div class="form-group row ">
+							<label for="addmargencomercial" class="col-sm-4  col-form-label">Margen Comercial</label>
+							<div class="col-sm-8">
+								<div class="input-group mb-1">
+									<div class="input-group-prepend">
+										<span class="input-group-text">%</span>
+									</div>
+									<input class="form-control form-control-sm" type="text" name="addmargencomercial" id="addmargencomercial" value="12" placeholder="Margen Comercial">
+
+								</div>
+
+							</div>
+						</div>
+
+
+						<div class="form-group row">
+							<label class="col-sm-3 col-form-label"></label>
+							<div class="col-sm-9 ">
+								<input class="form-check-input" type="checkbox" name="addnext" id="addnext">
+								<label class="form-check-label" for="addnext">
+									Agregar Otra
+								</label>
+							</div>
+
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancelar</button>
+						<button type="button" id="addbuttonform" class="btn btn-primary btn-sm">Aceptar</button>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<form id="edtformulario">
+		<div class="modal fade" id="edtmodal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-scrollable">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="modalLabel">Editar Unidad</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+
+					<div class="modal-body">
+						<div class="form-group row ">
+							<label for="edtnombre" class="col-sm-4  col-form-label">Nombre</label>
+							<div class="col-sm-8">
+								<input class="form-control form-control-sm" type="text" name="edtnombre" id="edtnombre" placeholder="Nombre del usuario">
+							</div>
+						</div>
+						<div class="form-group row ">
+							<label for="edtcodigo" class="col-sm-4  col-form-label">Código</label>
+							<div class="col-sm-8">
+								<input class="form-control form-control-sm" type="text" name="edtcodigo" id="edtcodigo" placeholder="Código de Unidad">
+							</div>
+						</div>
+						<div class="form-group row ">
+							<label for="edtmargencomercial" class="col-sm-4  col-form-label">Margen Comercial</label>
+							<div class="col-sm-8">
+								<div class="input-group mb-1">
+									<div class="input-group-prepend">
+										<span class="input-group-text">$</span>
+									</div>
+
+									<input class="form-control form-control-sm" type="text" name="edtmargencomercial" id="edtmargencomercial" placeholder="Margen Comercial">
+
+								</div>
+
+							</div>
+						</div>
+
+
+					</div>
+
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancelar</button>
+						<button type="button" id="edtbuttonform" class="btn btn-primary btn-sm">Aceptar</button>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</form>
+
+
+{% endblock %}
+
+{% block footer %}
+	{{ parent() }}
+	<script src="{{ asset('js/conf_unidades.js') }}" rel="script"></script>
+{% endblock %}

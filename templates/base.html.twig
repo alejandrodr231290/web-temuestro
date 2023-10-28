@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="es">
+	<head>
+		{% block head %}
+			<meta charset="utf-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1">
+			<meta name="description" content="">
+			<meta name="author" content="UIN Sitrans Villa Clara 2023">
+			<link rel="icon" type="image/png" href="{{ asset('imagen/logo.png') }}">
+			<title>
+				{% block title %}{% endblock %}
+				- TM</title>
+			<!-- Bootstrap core CSS -->
+			<link rel="stylesheet" href="{{ asset('componentes/bootstrap/css/bootstrap.min.css') }}">
+			<link rel="stylesheet" href="{{ asset('componentes/jquery-confirm/css/jquery-confirm.min.css') }}">
+			<link rel="stylesheet" href="{{ asset('componentes/fontawesome/css/all.min.css') }}">
+			<link rel="stylesheet" href="{{ asset('componentes/bootstrap/font/bootstrap-icons.min.css') }}">
+			<link rel="stylesheet" href="{{ asset('componentes/datatable/datatables.min.css') }}">
+
+
+			<link rel="stylesheet" href="{{ asset('css/app.css')}}">
+			<link rel="stylesheet " href="{{ asset('css/sidebars.css') }}">
+			{% if app.user %}
+				<link rel="stylesheet " href="{{ asset('css/menu.css') }}">
+			{% endif %}
+			<link rel="stylesheet" href="{{ asset('componentes/datepicker/datepicker-bs5.css') }}">
+
+		{% endblock %}
+	</head>
+	<body style="background-color: #fff;">
+
+		<nav class="navbar navbar-dark bg-primary shadow">
+			<div class="container-fluid">
+				<div class="collapse navbar-collapse" id="menu-toggler">
+
+					<a class="btn btn-primary" aria-label="Skip to main navigation">
+						<i class="fa fa-bars" aria-hidden="true"></i>
+					</a>
+
+				</div>
+
+				<a class="navbar-brand " href="/">
+
+					<img class="sidebar-logo-img " src="{{ asset('/imagen/logo.png') }}" width="32" height="32"/>
+					T-Muestro
+				</a>
+				{% if app.user %}
+					<div class="dropdown ">
+						<a class="btn me-1" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+							<div id="ex4" style="color: #fff;">
+								<img id="avatarimg" src="{{ asset('/imagen/avatar.png') }}" alt="" class="rounded-circle me-2" width="32" height="32">
+								<span id="avatarDropDownUsername" class="">{{ app.user.username }}</span>
+
+							</div>
+						</a>
+
+						<div class="dropdown-menu dropdown-menu-end text-small shadow" aria-labelledby="dropdown" style="">
+							<div id="avatarDropUPUsername" class="row border-bottom">
+								<p class="text-center">{{ app.user.username }}</p>
+							</div>
+
+							<li>
+								<a class="dropdown-item" href="#" iduser="{{ app.user.getid()}}" id="cambiarcontrasena">
+									<span class="input-group-addon">
+										<i class="bi bi-key"></i>
+									</span>
+									Cambiar Contraseña</a>
+
+							</li>
+							<li>
+								<a class="dropdown-item" href="/logout">
+									<span class="input-group-addon">
+										<i class="bi bi-x-lg"></i>
+									</span>
+									Cerrar sesión</a>
+							</li>
+						</div>
+					</div>
+
+				{% endif %}
+
+			</nav>
+
+			<div class="menu-backdrop"></div>
+			<main>
+				<div class="errors-container position-absolute top-0 end-0 p-3">
+					{% if errors is defined %}
+						{% for error in errors %}
+							<div class="alert alert-danger alert-dismissible show" role="alert">
+								{{ error }}
+								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+							</div>
+						{% endfor %}
+					{% endif %}
+				</div>
+
+				{% block content %}{% endblock %}
+
+				
+			</main>
+
+
+		</body>
+		{% block footer %}
+
+
+			<footer class="d-flex  justify-content-between align-items-center border-top">
+				<div class="col-md-4 d-flex align-items-center">
+					<a href="https://www.sitrans.cu/" class="m-1">
+						<img id="avatarimg" src="{{ asset('/imagen/logos.png') }}" alt="" class="" width="80" height="20">
+					</a>
+					<span class="mb-3 mb-md-0 text-muted">© 2023 SITRANS Villa Clara</span>
+				</div>
+
+			</footer>
+
+			<script src="{{ asset('componentes/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+			<script src="{{ asset('componentes/fontawesome/js/all.min.js') }}"></script>
+			<script src="{{ asset('componentes/jquery/jquery-3.6.4.min.js') }}"></script>
+
+			<script src="{{ asset('componentes/jquery-confirm/js/jquery-confirm.min.js') }}"></script>
+
+			<script src="{{ asset('componentes/jquery-validation/jquery.validate.min.js') }}"></script>
+
+			<script src="{{ asset('componentes/jquery-validation/additional-methods.min.js') }}"></script>
+			<script src="{{ asset('componentes/jquery-validation/messages_es.min.js') }}"></script>
+
+			<script src="{{ asset('componentes/datatable/datatables.min.js') }}"></script>
+			<script src="{{ asset('componentes/datatable/sum().js') }}"></script>
+
+			<script src="{{ asset('componentes/datepicker/datepicker-full.js') }}"></script>
+			<script src="{{ asset('componentes/datepicker/es.js') }}"></script>
+
+			<script src="{{ asset('componentes/numberformatter/jquery.number.min.js') }}"></script>
+
+
+			<script src="{{ asset('js/app.js') }}" rel="script"></script>
+
+			{% if app.user %}
+				<script src="{{ asset('js/menu.js') }}" rel="script"></script>
+			{% endif %}
+		{% endblock %}
+	</body>
+</html>

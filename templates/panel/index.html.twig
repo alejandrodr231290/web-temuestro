@@ -1,0 +1,136 @@
+{% extends "base.html.twig" %}
+{% block title %}Inicio
+{% endblock %}
+
+
+{% block head %}
+	{{ parent() }}
+
+	<style>
+		type="text/css" .icon-link:hover > .bi {
+			transform: translate(0.25rem);
+		}
+		.icon-square {
+			width: 3rem;
+			height: 3rem;
+			border-radius: 0.75rem;
+		}
+		.card-cover {
+			background-repeat: no-repeat;
+			background-position: center center;
+			background-size: cover;
+		}
+		.feature-icon-small {
+			width: 3rem;
+			height: 3rem;
+		}
+		.btn-app {
+			margin: 5px;
+		}
+		.mb-1 {
+			margin-bottom: 0.25rem !important;
+		}
+		h5 {
+			margin-bottom: 0.25rem;
+		}
+		.dataTables_length {
+			margin-bottom: 0.25rem;
+		}
+	</style>
+
+{% endblock %}
+
+{% block content %}
+
+	{{ include('menu.html.twig', {modulo: 'panel'}) }}
+
+	<div class="container container-full-width">
+		<h3 class="">Bienvenido a T-Muestro</h3>
+		<div class="row">
+			<p class="">Estado de la comercialización en tiempo real</p>
+		</div>
+		<div class="row">
+			
+		</div>
+
+		<div class="row ps-2 pe-2 text-center">
+			<label for="select-almacen" class="col-3 col-form-label fw-bolder">
+						Planes de 
+					</label>
+					<div class="col-4">
+						<select class="form-select  form-select-sm " id="select-mes" aria-label=".form-select-sm example">
+							{% for mes in meses %}
+							    {% if mes.id == mesactual %} 
+		                             <option value="{{ mes.id }}" selected>{{ mes.nombre  }}</option>
+								{% else %}
+                                     <option value="{{ mes.id }}">{{ mes.nombre }}</option>
+			  			        {% endif %}
+							{% endfor %}
+						</select>
+					</div>
+		</div>
+
+		<div class="row">
+			<div class="fs-5 ">
+				<i class="bi bi-wallet2"></i>
+				Ventas
+			</div>
+		</div>
+		<div class="row">
+			<table id="tablaventas" class=" table table-striped" style="width:100%">
+				<thead>
+					<tr>
+					   
+						<th scope="col">Unidad</th>
+						<th scope="col">Plan</th>
+						<th scope="col">Real</th>
+						<th scope="col">%</th>
+					</tr>
+				</thead>
+
+			</table>
+		</div>
+		<div class="row">
+			<div class="fs-5 mt-2">
+				<i class="bi bi-wallet2"></i>
+				Servicios
+			</div>
+		</div>
+		<div class="row">
+			<table id="tablaservicios" class=" table table-striped" style="width:100%">
+				<thead>
+					<tr>
+					   
+						<th scope="col">Unidad</th>
+						<th scope="col">Plan</th>
+						<th scope="col">Real</th>
+						<th scope="col">%</th>
+					</tr>
+				</thead>
+
+			</table>
+		</div>
+		<div class="row ps-2 pe-2 text-center">
+			<h4 class="">Plan Anual</h4>
+		</div>
+		<div class="row">
+			<table id="tablaanual" class=" table table-striped" style="width:100%">
+				<thead>
+					<tr>
+						<th scope="col">Unidad</th>
+						<th scope="col">Plan</th>
+						<th scope="col">Real</th>
+						<th scope="col">%</th>
+					</tr>
+				</thead>
+
+			</table>
+		</div>
+	</div>
+	
+{% endblock %}
+{% block footer %}
+
+	{{ parent() }}
+	<script src="{{ asset('js/panel.js') }}" rel="script"></script>
+{% endblock %}

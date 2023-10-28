@@ -1,0 +1,91 @@
+{% extends "base.html.twig" %}
+{% block title %}Autenticación
+{% endblock %}
+{% block head %}
+	{{ parent() }}
+
+	<style type="text/css">
+		.form-signin {
+			width: 100%;
+			max-width: 300px;
+			padding: 15px;
+			margin: 0 auto;
+		}
+	</style>
+
+{% endblock %}
+
+{% block content %}
+
+
+	<div class="container container-full-width">
+		<section class="container">
+			<div class="container-fluid h-custom">
+				<div class="row d-flex justify-content-center align-items-center h-100">
+
+					<div class="form-group row ">
+						{% if app.user %}
+							<div class="text-center mb-2">
+								Se encuentra autenticado como
+								{{ app.user.username }},
+							</div>
+							<div class="text-center mb-2">
+								<a href="{{ path('app_panel') }}">Ir a Inicio</a>
+								<a href="{{ path('app_logout') }}">Cerrar sesión</a>
+							</div>
+
+						{% endif %}
+
+					</div>
+					<form method="post" class="form-signin">
+						<div class="form-group mb-2">
+
+							<div class="text-center mb-2">
+								<h1 class="h3 mb-3 font-weight-normal">Autenticarse</h1>
+							</div>
+						</div>
+						<div class="form-group mb-2">
+
+							<label for="inputUsername">Usuario</label>
+							<input placeholder="Usuario" type="text" value="{{ last_username }}" name="_username" id="inputUsername" class="form-control" required autofocus>
+						</div>
+						<div class="form-group mb-1">
+
+
+							<label for="inputPassword">Contraseña</label>
+							<input placeholder="Contraseña" type="password" name="_password" id="inputPassword" class="form-control" required>
+						</div>
+						<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+						<div class="form-group">
+							<div class="checkbox mb-2">
+								<label for="remember_me">
+									<input type="checkbox" id="remember_me" name="_remember_me">
+									Recordarme
+								</label>
+							</div>
+						</div>
+						{% if error %}
+							<div class="form-group mb-2">
+
+								<p class="text-danger">Credenciales Incorrectas</p>
+							</div>
+
+						{% endif %}
+						<div class="form-group text-center mb-2">
+							<button class="btn btn-primary btn-block" type="submit">Autenticar</button>
+						</div>
+					</form>
+					<div class="form-group text-center text-black mb-3 mb-md-0">
+						Sitrans Villa Clara 2023
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+
+
+{% endblock %}
+{% block footer %}
+	{{ parent() }}
+{% endblock %}

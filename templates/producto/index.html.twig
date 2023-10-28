@@ -1,0 +1,105 @@
+{% extends "base.html.twig" %}
+{% block title %}Productos
+{% endblock %}
+
+
+{% block head %}
+	{{ parent() }}
+
+	<style type="text/css">
+
+		#select-almacen {
+			width: 200px;
+			float: left;
+			margin-right: 50px;
+		}
+		#select-almacen {
+
+			width: 200px;
+			float: left;
+
+		}
+		.bloqueados:hover {
+			cursor: pointer;
+		}
+		.logo:hover {
+			cursor: pointer;
+			-webkit-transform: scale(1.1);
+			-ms-transform: scale(1.1);
+			transform: scale(1.1);
+			transition: transform 0.1s;
+		}
+		.btn-app {
+			margin: 5px;
+		}
+		.mb-1 {
+			margin-bottom: 0.25rem !important;
+		}
+		h5 {
+			margin-bottom: 0.25rem;
+		}
+		.dataTables_length {
+			margin-bottom: 0.25rem;
+		}
+	</style>
+
+{% endblock %}
+
+{% block content %}
+
+	{{ include('menu.html.twig', {modulo: 'datos'}) }}
+
+	<div class="container container-full-width">
+		<div class="row border-bottom mb-1">
+			<h5 class="">Productos</h5>
+		</div>
+		<div class="row mb-1" >
+			<div class=" col-md-4"  {% if (is_granted('ROLE_COMERCIAL') or is_granted('ROLE_TRABAJADOR')) and almacenes|length < 2 %} 
+		      hidden {% endif %}>
+				<div class="form-group row ">
+					<label for="select-almacen" class="col-3 col-form-label fw-bolder">
+						Almacén
+					</label>
+					<div class="col-9">
+						<select class="form-select  form-select-sm " id="select-almacen" aria-label=".form-select-sm example">
+							{% for almacen in almacenes %}
+							    {% if almacen.id == amacenselected %} 
+		                             <option value="{{ almacen.id }}" selected>{{ almacen.nombre  }}  selected </option>
+								{% else %}
+                                     <option value="{{ almacen.id }}">{{ almacen.nombre }}</option>
+			  			        {% endif %}
+							{% endfor %}
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<p class="text-lg-start text-uppercase ">Inventario Total:
+					<label id="total" class="font-weight-bold fs-5">0</label>
+                </p>
+			</div>
+	
+		</div>
+		
+
+		<table id="tabla" class="  table table-striped" style="width:100%">
+			<thead>
+				<tr>
+                  
+					<th>Descripción</th>
+					<th>Existencias</th>
+					<th>U/M</th>
+					<th>Precio</th>
+					<th>Valor</th>
+				</tr>
+			</thead>
+		</table>
+
+	</div>
+
+{% endblock %}
+{% block footer %}
+	{{ parent() }}
+	<script src="{{ asset('js/datos_producto.js') }}" rel="script"></script>
+
+{% endblock %}
